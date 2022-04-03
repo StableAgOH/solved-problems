@@ -2,7 +2,6 @@
 #include <ctime>
 using namespace std;
 //==========================================
-#include <string>
 typedef long long ll;
 ll qpow(ll a,ll k,ll p)
 {
@@ -35,22 +34,23 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int t;
-    cin>>t;
-    while(t--)
+    int a,m;
+    string b;
+    cin>>a>>m>>b;
+    int tmp = 0;
+    int phim = phi(m);
+    bool flag = false;
+    for(auto c : b)
     {
-        int a,p;
-        string k;
-        cin>>a>>k>>p;
-        int phip = phi(p);
-        ll b = 0;
-        for(auto c : k)
+        tmp = tmp*10+c-'0';
+        if(tmp>=phim)
         {
-            b = b*10+c-'0';
-            b%=phip;
-        }
-        cout<<qpow(a,b,p)<<endl;
+            flag = true;
+            tmp %= phim;
+        } 
     }
+    if(flag) tmp += phim;
+    cout<<qpow(a, tmp, m)<<endl;
     //======================================
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;

@@ -60,7 +60,6 @@ signed main(signed argc, char const *argv[])
     cout<<(judge()?"Yes":"No")<<endl;
     //======================================
 #ifdef LOCAL
-end:
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif
     return 0;

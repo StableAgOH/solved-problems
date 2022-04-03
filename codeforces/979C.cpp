@@ -90,7 +90,6 @@ signed main(signed argc, char const *argv[])
     else ans = (n*(n-1)-siz[x]*siz[y]);
     cout<<ans<<endl;
     //======================================
-end:
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif

@@ -32,8 +32,8 @@ signed main(signed argc, char const *argv[])
     }
     if(cnt) cout<<"NO"<<endl;
     else cout<<"YES"<<endl;
-    //======================================
 end:
+    //======================================
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif

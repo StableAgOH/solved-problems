@@ -2,32 +2,26 @@
 #include <ctime>
 using namespace std;
 //==========================================
-#include <string>
-string solve(int n,int k)
-{
-    string ret;
-    for(int i=0;i<n;i++)
-        ret.push_back((i%3)+'a');
-    return ret;
-}
+typedef long long ll;
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    clock_t c1 = clock();
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int t;
-    cin>>t;
-    while(t--)
+    ll n,k;
+    cin>>n>>k;
+    ll sum = n*k;
+    for(int l=1,r;l<=n;l=r+1)
     {
-        int n,k;
-        cin>>n>>k;
-        cout<<solve(n,k)<<endl;
+        r = k>l?min(k/(k/l), n):n;
+        sum -= (r-l+1)*(k/l)*(l+r)/2;
     }
+    cout<<sum<<endl;
     //======================================
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;

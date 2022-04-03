@@ -2,31 +2,33 @@
 #include <ctime>
 using namespace std;
 //==========================================
-#include <string>
-string solve(int n,int k)
-{
-    string ret;
-    for(int i=0;i<n;i++)
-        ret.push_back((i%3)+'a');
-    return ret;
-}
+#include <list>
+#include <numeric>
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    clock_t c1 = clock();
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int t;
-    cin>>t;
-    while(t--)
+    int n,m;
+    cin>>n>>m;
+    list<int> ls(n);
+    iota(ls.begin(), ls.end(), 1);
+    auto it = ls.begin();
+    while(!ls.empty())
     {
-        int n,k;
-        cin>>n>>k;
-        cout<<solve(n,k)<<endl;
+        for(int i=1;i<m;i++)
+        {
+            ++it;
+            if(it==ls.end()) it=ls.begin();
+        }
+        cout<<*it<<' ';
+        ls.erase(it++);
+        if(it==ls.end()) it=ls.begin();
     }
     //======================================
 #ifdef LOCAL

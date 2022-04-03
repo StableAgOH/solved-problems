@@ -3,31 +3,24 @@
 using namespace std;
 //==========================================
 #include <string>
-string solve(int n,int k)
-{
-    string ret;
-    for(int i=0;i<n;i++)
-        ret.push_back((i%3)+'a');
-    return ret;
-}
+#include <set>
+#include <algorithm>
+#include <iterator>
+set<string> s;
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    clock_t c1 = clock();
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n,k;
-        cin>>n>>k;
-        cout<<solve(n,k)<<endl;
-    }
+    int n;
+    cin>>n;
+    copy_n(istream_iterator<string>(cin), n, inserter(s, s.begin()));
+    cout<<s.size()<<endl;
     //======================================
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;

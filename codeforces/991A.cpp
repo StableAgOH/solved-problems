@@ -19,7 +19,6 @@ signed main(signed argc, char const *argv[])
     if(x<1||x>n||c>a||c>b) cout<<-1<<endl;
     else cout<<x<<endl;
     //======================================
-end:
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif

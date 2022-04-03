@@ -2,29 +2,44 @@
 #include <ctime>
 using namespace std;
 //==========================================
-#include <stack>
+#include <vector>
+bool isprime(int x)
+{
+    for(int i=2;i*i<=x;i++)
+        if(x%i==0) return false;
+    return true;
+}
+vector<int> v;
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    clock_t c1 = clock();
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    stack<int> st;
     int n;
     cin>>n;
-    for(int i=0;i<n;i++)
+    for(int i=2;i<=n;i++)
+        if(isprime(i))
+            v.push_back(i);
+    for(auto i : v)
     {
-        int tmp;
-        cin>>tmp;
-        if(st.empty()||st.top()==tmp)
-            st.push(tmp);
-        if(st.top()!=tmp) st.pop();
+        for(auto j : v)
+        {
+            for(auto k : v)
+            {
+                if(i+j+k==n)
+                {
+                    cout<<i<<' '<<j<<' '<<k<<endl;
+                    goto end;
+                }
+            }
+        }
     }
-    cout<<st.top()<<endl;
+end:
     //======================================
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;

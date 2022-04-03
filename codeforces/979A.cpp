@@ -19,7 +19,6 @@ signed main(signed argc, char const *argv[])
     else if(n%2) cout<<n<<endl;
     else cout<<n/2<<endl;
     //======================================
-end:
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif

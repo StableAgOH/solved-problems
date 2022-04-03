@@ -60,7 +60,6 @@ signed main(signed argc, char const *argv[])
     for(auto it=v.rbegin(); it!=v.rend(); it++)
         cout<<*it<<" ";
     //======================================
-end:
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif

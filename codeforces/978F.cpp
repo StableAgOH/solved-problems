@@ -43,7 +43,6 @@ signed main(signed argc, char const *argv[])
         cout<<tmp<<" ";
     }
     //======================================
-end:
 #ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
 #endif
