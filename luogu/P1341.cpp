@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdio>
 #include <ctime>
 using namespace std;
 //==========================================
@@ -29,11 +28,13 @@ void dfs(char u)
 }
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    clock_t c1 = clock();
 #endif
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     //======================================
     int n;
     cin>>n;
@@ -44,8 +45,7 @@ signed main(signed argc, char const *argv[])
         cin>>u>>v;
         cmin = min(cmin, min(u,v));
         G[u][v]=G[v][u]=true;
-        d[u]++;
-        d[v]++;
+        d[u]++; d[v]++;
     }
     char j = judgeeuler();
     if(~j)
@@ -53,11 +53,11 @@ signed main(signed argc, char const *argv[])
         dfs(j?j:cmin);
         for(auto it=ans.rbegin();it!=ans.rend();it++)
             cout<<*it;
-
     }
     else cout<<"No Solution\n";
     //======================================
-end:
+#ifdef LOCAL
     cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+#endif
     return 0;
 }
