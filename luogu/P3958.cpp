@@ -4,7 +4,7 @@ using namespace std;
 //==========================================
 #include <tuple>
 #include <numeric>
-const int maxn = 1e4+5;
+const int maxn = 1005;
 typedef long long ll;
 typedef tuple<ll,ll,ll> tp3;
 tp3 a[maxn];
