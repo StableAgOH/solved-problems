@@ -1,24 +1,25 @@
 #include <iostream>
-#include <cstdio>
-#include <ctime>
+#include <chrono>
 using namespace std;
 //==========================================
-const int MAXN = 25;
-int amount[MAXN];
 #include <cstring>
+const int maxn = 25;
+int cnt[maxn];
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    auto c1 = chrono::high_resolution_clock::now();
 #endif
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     //======================================
     int t;
     cin>>t;
     while(t--)
     {
-        memset(amount, 0, sizeof(amount));
+        memset(cnt, 0, sizeof(cnt));
         int n;
         cin>>n;
         for(int i=0;i<n;i++)
@@ -27,14 +28,14 @@ signed main(signed argc, char const *argv[])
             cin>>x;
             for(int j=0;x;j++)
             {
-                if(x % 2) amount[j]++;
+                if(x % 2) cnt[j]++;
                 x /= 2;
             }
         }
         int ans = 0;
         for(int i=20;i>=0;i--)
         {
-            int a=amount[i], b=n-a;
+            int a=cnt[i], b=n-a;
             if(a)
             {
                 if(b%2)
@@ -53,10 +54,12 @@ signed main(signed argc, char const *argv[])
                 }
             }
         }
-        cout<<ans<<endl;
+        cout<<ans<<'\n';
     }
     //======================================
-end:
-    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+#ifdef LOCAL
+    auto c2 = chrono::high_resolution_clock::now();
+    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
+#endif
     return 0;
 }

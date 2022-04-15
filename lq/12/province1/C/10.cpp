@@ -1,13 +1,12 @@
 #include <iostream>
-#include <cstdio>
-#include <ctime>
+#include <chrono>
 using namespace std;
 //==========================================
 #include <set>
 #include <tuple>
 #include <vector>
 #include <algorithm>
-const int maxn = 1e5 + 5;
+const int maxn = 1e5+5;
 struct Node
 {
     int ch[2],val;
@@ -90,7 +89,7 @@ auto split(int p)
     it--;
     int l,n; bool rev;
     tie(l, rev, n) = *it;
-    return rt.insert(tp3(p, rev, split(n, p-l, rev))).first;
+    return rt.emplace(p, rev, split(n, p-l, rev)).first;
 }
 void solve(int l, int r, bool rev)
 {
@@ -101,21 +100,22 @@ void solve(int l, int r, bool rev)
     for(auto it = itl; it!=itr; ++it)
         merge(n, get<2>(*it));
     rt.erase(itl, itr);
-    rt.insert(tp3(l, rev, n));
+    rt.emplace(l, rev, n);
 }
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    auto c1 = chrono::high_resolution_clock::now();
 #endif
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     //======================================
     int n,m;
     cin>>n>>m;
-    for(int i=1;i<=n;i++)
-        rt.insert(tp3(i, false, build(1, n, i)));
-    rt.insert(tp3(n+1, false, 0));
+    for(int i=1;i<=n;i++) rt.emplace(i, false, build(1, n, i));
+    rt.emplace(n+1, false, 0);
     while(m--)
     {
         int opt,x;
@@ -125,7 +125,9 @@ signed main(signed argc, char const *argv[])
     }
     for(auto i : print(1, n)) cout<<i<<' ';
     //======================================
-end:
-    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+#ifdef LOCAL
+    auto c2 = chrono::high_resolution_clock::now();
+    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
+#endif
     return 0;
 }

@@ -2,31 +2,7 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
-struct E
-{
-    int to,next;
-}Edge[maxn];
-int tot,Head[maxn];
-inline void AddEdge(int u,int v)
-{
-    Edge[tot]=(E){v,Head[u]};
-    Head[u]=tot++;
-}
-int dp[maxn];
-void dfs(int u)
-{
-    int sum = 0, mx = 0;
-    for(int i=Head[u];~i;i=Edge[i].next)
-    {
-        int v = Edge[i].to;
-        sum++;
-        dfs(v);
-        mx = max(mx, dp[v]);
-    }
-    dp[u] = mx + sum;
-}
-#include <cstring>
+typedef long long ll;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -37,17 +13,19 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    memset(Head,-1,sizeof(Head));
-    int n;
-    cin>>n;
-    for(int i=2;i<=n;i++)
+    ll a,b,n;
+    cin>>a>>b>>n;
+    ll t = 5*a+2*b;
+    ll ans = n/t*7;
+    n %= t;
+    if(n<=5*a) ans += n/a+(n%a?1:0);
+    else
     {
-        int fa;
-        cin>>fa;
-        AddEdge(fa,i);
+        ans += 5;
+        n -= 5*a;
+        ans += n/b+(n%b?1:0);
     }
-    dfs(1);
-    cout<<dp[1]<<endl;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

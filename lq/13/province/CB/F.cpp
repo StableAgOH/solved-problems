@@ -2,8 +2,10 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1850;
-int yh[maxn][maxn];
+const int maxn = 505;
+typedef long long ll;
+int a[maxn][maxn];
+ll pre[maxn][maxn];
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -14,37 +16,37 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int n;
-    cin>>n;
-    if(n==1) cout<<1<<endl;
-    else
+    int n,m;
+    ll k;
+    cin>>n>>m>>k;
+    for(int i=1;i<=n;i++)
     {
-        yh[1][0] = yh[1][1] = 1;
-        for(int i=2;i<=1825;i++)
+        for(int j=1;j<=m;j++)
         {
-            yh[i][0] = 1;
-            for(int j=1;j<=i;j++)
-            {
-                yh[i][j] = yh[i-1][j-1]+yh[i-1][j];
-                if(yh[i][j]==n)
-                {
-                    cout<<i*(i+1)/2+j+1<<endl;
-                    goto end;
-                }
-            }
+            cin>>a[i][j];
+            pre[i][j] = pre[i][j-1]+a[i][j];
         }
-        int x=6;
-        for(int i=4;x<=1e9;x+=i++)
-        {
-            if(x==n)
-            {
-                cout<<(long long)i*(i+1)/2+3<<endl;
-                goto end;
-            }
-        }
-        cout<<(long long)n*(n+1)/2+2<<endl;
     }
-end:
+    ll cnt = 0;
+    for(int l=1;l<=m;l++)
+    {
+        for(int r=l;r<=m;r++)
+        {
+            int t = 1;
+            ll sum = 0;
+            for(int b=1;b<=n;b++)
+            {
+                sum += pre[b][r]-pre[b][l-1];
+                while(t<=b&&sum>k)
+                {
+                    sum -= pre[t][r]-pre[t][l-1];
+                    t++;
+                }
+                cnt += b-t+1;
+            }
+        }
+    }
+    cout<<cnt<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

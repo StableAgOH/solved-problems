@@ -1,45 +1,43 @@
 #include <iostream>
-#include <ctime>
+#include <chrono>
 using namespace std;
-clock_t c1;
-inline void exit()
-{
-#ifdef LOCAL
-    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
-#endif
-    exit(0);
-}
 //==========================================
 #include <cmath>
-const int maxn = 105;
+#include <algorithm>
+#include <vector>
+#include <bitset>
+#include <iterator>
+#include <numeric>
 const int maxw = 1e5+5;
-bool dp[maxw];
+vector<int> w;
+bitset<maxw> dp;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
+    auto c1 = chrono::high_resolution_clock::now();
 #endif
-    c1 = clock();
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
     int n;
     cin>>n;
-    for(int i=1;i<=n;i++)
+    copy_n(istream_iterator<int>(cin), n, inserter(w, w.begin()));
+    int sum = accumulate(w.begin(), w.end(), 0);
+    for(auto i : w)
     {
-        int w;
-        cin>>w;
-        for(int j=1e5;j>=0;j--)
-            dp[j]|=dp[abs(j-w)];
-        for(int j=0;j<=1e5-w;j++)
-            dp[j]|=dp[j+w];
-        dp[w]=true;
+        for(int j=sum;j>=0;j--)
+            dp[j] = dp[j]|dp[abs(j-i)];
+        for(int j=0;j<=sum-i;j++)
+            dp[j] = dp[j]|dp[j+i];
+        dp[i] = true;
     }
-    int ans = 0;
-    for(int j=1;j<=1e5;j++)
-        if(dp[j]) ans++;
-    cout<<ans<<endl;
+    cout<<dp.count()-dp[0]<<endl;
     //======================================
-    exit();
+#ifdef LOCAL
+    auto c2 = chrono::high_resolution_clock::now();
+    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
+#endif
+    return 0;
 }

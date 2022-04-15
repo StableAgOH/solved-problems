@@ -2,31 +2,12 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
-struct E
-{
-    int to,next;
-}Edge[maxn];
-int tot,Head[maxn];
-inline void AddEdge(int u,int v)
-{
-    Edge[tot]=(E){v,Head[u]};
-    Head[u]=tot++;
-}
-int dp[maxn];
-void dfs(int u)
-{
-    int sum = 0, mx = 0;
-    for(int i=Head[u];~i;i=Edge[i].next)
-    {
-        int v = Edge[i].to;
-        sum++;
-        dfs(v);
-        mx = max(mx, dp[v]);
-    }
-    dp[u] = mx + sum;
-}
-#include <cstring>
+#include <vector>
+#include <iterator>
+#include <algorithm>
+const int mod = 1e9+7;
+typedef long long ll;
+vector<int> a,b;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -37,17 +18,22 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    memset(Head,-1,sizeof(Head));
-    int n;
-    cin>>n;
-    for(int i=2;i<=n;i++)
+    int n,m;
+    cin>>n>>m;
+    copy_n(istream_iterator<int>(cin), m, inserter(a, a.begin()));
+    cin>>m;
+    copy_n(istream_iterator<int>(cin), m, inserter(b, b.begin()));
+    b.insert(b.begin(), a.size()-b.size(), 0);
+    int i;
+    for(i=0;i<a.size();i++)
+        if(a[i]>b[i]) break;
+    ll ans = a[i]-b[i];
+    for(i++;i<a.size();i++)
     {
-        int fa;
-        cin>>fa;
-        AddEdge(fa,i);
+        int jz = max(2, max(a[i], b[i])+1);
+        ans = (ans*jz+a[i]-b[i])%mod;
     }
-    dfs(1);
-    cout<<dp[1]<<endl;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();
