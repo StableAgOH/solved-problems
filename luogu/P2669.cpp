@@ -13,26 +13,15 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int k;
+    cin>>k;
+    int cnt1=1, cnt2=1, cnt3=1, sum=0;
+    for(int i=1;i<=k;i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        sum += cnt1;
+        if(!--cnt2) cnt1=cnt2=++cnt3;
     }
-    cout<<int(ck*1.2+money)<<endl;
+    cout<<sum<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

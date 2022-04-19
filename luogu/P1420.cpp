@@ -2,7 +2,10 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <vector>
+#include <algorithm>
+#include <iterator>
+vector<int> v;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +16,20 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int n;
+    cin>>n;
+    copy_n(istream_iterator<int>(cin), n, inserter(v,v.begin()));
+    int mx=1, cnt=1;
+    for(int i=1;i<v.size();i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
+        if(v[i]==v[i-1]+1) cnt++;
         else
         {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
+            mx = max(mx, cnt);
+            cnt = 1;
         }
     }
-    cout<<int(ck*1.2+money)<<endl;
+    cout<<max(mx, cnt)<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

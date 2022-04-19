@@ -2,7 +2,9 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <string>
+#include <map>
+map<char,int> m;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +15,28 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int maxv = 0xcfcfcfcf;
+    for(int i=0;i<4;i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        string s;
+        getline(cin,s);
+        for(auto c : s) if(isupper(c)) maxv = max(maxv, ++m[c]);
     }
-    cout<<int(ck*1.2+money)<<endl;
+    for(int i=maxv;i>0;i--)
+    {
+        for(char c='A';c<='Z';c++)
+        {
+            if(m[c]>=i) cout<<'*';
+            else cout<<' ';
+            if(c!='Z') cout<<' ';
+        }
+        cout<<endl;
+    }
+    for(char c='A';c<='Z';c++)
+    {
+        cout<<c;
+        if(c!='Z') cout<<' ';
+    }
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

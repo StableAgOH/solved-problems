@@ -2,7 +2,20 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <string>
+void change(char &c)
+{
+    if(c=='V') c='K';
+    else c='V';
+}
+string s, sub="VK";
+int ct()
+{
+    int x=0,idx=0;
+    while((idx=s.find(sub,idx))!=string::npos)
+		x++,idx++;
+    return x;
+}
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +26,17 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int n;
+    cin>>n>>s;
+    int ans = ct();
+    for(auto &c : s)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        change(c);
+        int t = ct();
+        ans = max(ans,t);
+        change(c);
     }
-    cout<<int(ck*1.2+money)<<endl;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

@@ -23,21 +23,21 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-	int n,k;
-	cin>>n>>k;
-	for(int i=0;i<n;i++)
-	{
-		int tmp;
-		cin>>tmp;
-		v.push_back(tmp);
-	}
-	sort(v.begin(), v.end());
-	int ans = v.size();
-	for(int i=0;i<v.size();i++)
-		for(int j=i;j<v.size();j++)
-			if(v[j]-v[i]<=k)
-				ans = min((size_t)ans, v.size()-(j-i+1));
-	cout<<ans<<endl;
+    int n,k;
+    cin>>n>>k;
+    for(int i=0;i<n;i++)
+    {
+        int tmp;
+        cin>>tmp;
+        v.push_back(tmp);
+    }
+    sort(v.begin(), v.end());
+    int ans = v.size();
+    for(int i=0;i<v.size();i++)
+        for(int j=i;j<v.size();j++)
+            if(v[j]-v[i]<=k)
+                ans = min((size_t)ans, v.size()-(j-i+1));
+    cout<<ans<<endl;
     //======================================
     exit();
 }

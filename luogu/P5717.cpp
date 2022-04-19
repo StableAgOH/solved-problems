@@ -2,7 +2,8 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <vector>
+#include <algorithm>
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +14,24 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    vector<int> v;
+    for(int i=0;i<3;i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        int tmp;
+        cin>>tmp;
+        v.push_back(tmp);
     }
-    cout<<int(ck*1.2+money)<<endl;
+    sort(v.begin(),v.end());
+    int a = v[0], b = v[1], c = v[2];
+    if(a+b<=c) cout<<"Not triangle"<<endl;
+    else
+    {
+        if(a*a+b*b==c*c) cout<<"Right triangle"<<endl;
+        else if(a*a+b*b>c*c) cout<<"Acute triangle"<<endl;
+        else cout<<"Obtuse triangle"<<endl;
+        if(a==b||b==c||a==c) cout<<"Isosceles triangle"<<endl;
+        if(a==b&&a==c&&b==c) cout<<"Equilateral triangle"<<endl;
+    }
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

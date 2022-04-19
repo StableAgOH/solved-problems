@@ -3,6 +3,7 @@
 using namespace std;
 //==========================================
 const int maxn = 1e5+5;
+int a[maxn];
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +14,24 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int n,m;
+    cin>>n>>m;
+    if(!m) cout<<0<<endl;
+    else
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
+        int tmp=0, mn=0x3f3f3f3f;
+        for(int i=0;i<n;i++)
         {
-            cout<<'-'<<i;
-            goto end;
+            cin>>a[i];
+            tmp += a[i];
+            if(i>=m-1)
+            {
+                mn = min(mn,tmp);
+                tmp -= a[i-m+1];
+            }
         }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        cout<<mn<<endl;
     }
-    cout<<int(ck*1.2+money)<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

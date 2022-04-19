@@ -1,5 +1,5 @@
 #include <iostream>
-#include <ctime>
+#include <chrono>
 using namespace std;
 //==========================================
 #include <vector>
@@ -11,7 +11,7 @@ signed main(signed argc, char const *argv[])
 #ifdef LOCAL
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
-    clock_t c1 = clock();
+    auto c1 = chrono::high_resolution_clock::now();
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -24,7 +24,8 @@ signed main(signed argc, char const *argv[])
         cout<<count_if(v.begin(), it, [&it](int x) { return x<*it; })<<' ';
     //======================================
 #ifdef LOCAL
-    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+    auto c2 = chrono::high_resolution_clock::now();
+    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
 #endif
     return 0;
 }

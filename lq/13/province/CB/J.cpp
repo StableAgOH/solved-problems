@@ -2,7 +2,9 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <vector>
+#include <cmath>
+typedef long long ll;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +15,27 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int n;
+    cin>>n;
+    ll ans = 0;
+    vector<ll> pre, cur;
+    for(int i=0;i<n;i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
+        cur.clear();
+        ll h;
+        cin>>h;
+        while(h>1)
         {
-            cout<<'-'<<i;
-            goto end;
+            cur.push_back(h);
+            h = sqrt(h/2+1);
         }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        int cnt = 0;
+        for(auto it1=pre.rbegin(),it2=cur.rbegin();it1!=pre.rend()&&it2!=cur.rend();++it1,++it2)
+            if(*it1==*it2) cnt++;
+        ans += cur.size()-cnt;
+        pre = cur;
     }
-    cout<<int(ck*1.2+money)<<endl;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

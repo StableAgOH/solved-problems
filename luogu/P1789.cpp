@@ -2,7 +2,8 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+const int maxn = 105;
+bool a[maxn][maxn];
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +14,30 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    int n,m,k;
+    cin>>n>>m>>k;
+    for(int i=0;i<m;i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        int x,y;
+        cin>>x>>y;
+        a[x+1][y-1] = a[x+1][y+3] = a[x-1][y+1] = a[x+3][y+1] = true;
+        for(int j=x;j<=x+2;j++)
+            for(int k=y;k<=y+2;k++)
+                a[j][k] = true;
     }
-    cout<<int(ck*1.2+money)<<endl;
+    for(int i=0;i<k;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        for(int j=x-1;j<=x+3;j++)
+            for(int k=y-1;k<=y+3;k++)
+                a[j][k] = true;
+    }
+    int ans = 0;
+    for(int i=2;i<=n+1;i++)
+        for(int j=2;j<=n+1;j++)
+            if(!a[i][j]) ans++;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

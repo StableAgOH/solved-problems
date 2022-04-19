@@ -2,7 +2,15 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
+#include <string>
+int ch[155];
+bool isprime(int x)
+{
+    if(x==0||x==1) return false;
+    for(int i=2;i*i<=x;i++)
+        if(x%i==0) return false;
+    return true;
+}
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,26 +21,26 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    int money = 0;
-    int ck = 0;
-    for(int i=1;i<=12;i++)
+    string s;
+    cin>>s;
+    for(auto c : s) ch[(int)c]++;
+    int minn=0x3f3f3f3f, maxn=0xcfcfcfcf;
+    for(int i='a';i<='z';i++)
     {
-        int ys;
-        cin>>ys;
-        money += 300;
-        if(money<ys)
-        {
-            cout<<'-'<<i;
-            goto end;
-        }
-        else
-        {
-            int data = money-ys;
-            ck += data/100*100;
-            money -= ys+data/100*100;
-        }
+        minn=min(minn,ch[i]==0?0x3f3f3f3f:ch[i]);
+        maxn=max(maxn,ch[i]);
     }
-    cout<<int(ck*1.2+money)<<endl;
+    int tmp = maxn-minn;
+    if(isprime(tmp))
+    {
+        cout<<"Lucky Word"<<endl;
+        cout<<tmp<<endl;
+    }
+    else
+    {
+        cout<<"No Answer"<<endl;
+        cout<<0<<endl;
+    }
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();
