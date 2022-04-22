@@ -2,7 +2,6 @@
 #include <chrono>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -13,7 +12,7 @@ signed main(signed argc, char const *argv[])
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     //======================================
-    cout<<stoi("2022",0,9)<<endl;
+    cout<<stoi("2022", 0, 9)<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();
