@@ -5,7 +5,7 @@ using namespace std;
 const int maxn = 105;
 const int mod = 1e9+7;
 typedef long long ll;
-ll dp[maxn<<1][maxn][maxn];
+ll dp[maxn][maxn][maxn];
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -19,18 +19,19 @@ signed main(signed argc, char const *argv[])
     int n,m;
     cin>>n>>m;
     dp[0][0][2] = 1;
-    for(int i=0;i<n+m;i++)
+    for(int i=0;i<=n;i++)
     {
-        for(int j=0;j<=n;j++)
+        for(int j=0;j<m;j++)
         {
-            for(int k=0;k<m+1;k++)
+            for(int k=0;k<=m-j;k++)
             {
-                if(j<n) (dp[i+1][j+1][min(k*2,m+1)] += dp[i][j][k]) %= mod;
-                if(k>=0) (dp[i+1][j][k-1] += dp[i][j][k]) %= mod;
+                if(i&&!(k&1)) dp[i][j][k] += dp[i-1][j][k/2];
+                if(j) dp[i][j][k] += dp[i][j-1][k+1];
+                dp[i][j][k] %= mod;
             }
         }
     }
-    cout<<dp[n+m-1][n][1]<<endl;
+    cout<<dp[n][m-1][1]<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();
