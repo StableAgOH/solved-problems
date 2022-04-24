@@ -11,10 +11,10 @@ int n,m;
 ll dfs(int i,int j,int k)
 {
     if(!i&&!j&&k==2) return 1;
+    if(i<0||j<0||k>m-j) return 0;
     if(~dp[i][j][k]) return dp[i][j][k];
-    ll ret = 0;
-    if(j&&k<=m-j) ret += dfs(i,j-1,k+1);
-    if(i&&!(k&1)) ret += dfs(i-1,j,k/2);
+    ll ret = dfs(i,j-1,k+1);
+    if(!(k&1)) ret += dfs(i-1,j,k/2);
     return dp[i][j][k] = ret%mod;
 }
 signed main(signed argc, char const *argv[])
