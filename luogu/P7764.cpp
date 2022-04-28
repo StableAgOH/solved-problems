@@ -3,6 +3,8 @@
 using namespace std;
 //==========================================
 #include <cmath>
+#include <vector>
+#include <algorithm>
 const int maxn = 5e5+5;
 int a[maxn], cnt[maxn], pos[maxn];
 int ans[maxn];
@@ -20,6 +22,8 @@ void sub(int p)
     else if(cnt[a[p]]==1) tot--;
 }
 struct Q { int l,r,k; } q[maxn];
+vector<int> v;
+inline int getid(int x) { return lower_bound(v.begin(), v.end(), x)-v.begin()+1; }
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -36,8 +40,12 @@ signed main(signed argc, char const *argv[])
     for(int i=1;i<=n;i++)
     {
         cin>>a[i];
+        v.push_back(a[i]);
         pos[i] = i/siz;
     }
+    sort(v.begin(), v.end());
+    v.erase(unique(v.begin(),v.end()), v.end());
+    for(int i=1;i<=n;i++) a[i] = getid(a[i]);
     for(int i=0;i<m;i++)
     {
         cin>>q[i].l>>q[i].r;
