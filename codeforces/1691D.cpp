@@ -4,8 +4,96 @@ using namespace std;
 //==========================================
 #include <vector>
 #include <numeric>
-#include "agoh/lib/MonotonyStack.hpp"
-#include "agoh/lib/SparseTable.hpp"
+#ifndef __MONOTONY_STACK_HPP__
+#define __MONOTONY_STACK_HPP__
+#endif
+
+#include <algorithm>
+#include <functional>
+#include <stack>
+#include <vector>
+namespace agoh
+{
+template<typename T = int, typename C = std::less_equal<T>>
+class MonotonyStack
+{
+private:
+    std::vector<int> res;
+    C comp;
+
+public:
+    template<typename II>
+    requires std::input_iterator<II> MonotonyStack(const II first, const II last, const int default_value = -1)
+    {
+        std::stack<int> st;
+        for(auto it = first; it != last; ++it)
+        {
+            while(!st.empty() && comp(*it, *(first + st.top())))
+                st.pop();
+            res.push_back(st.empty() ? default_value : st.top());
+            st.push(it - first);
+        }
+    }
+    auto& reverse()
+    {
+        std::reverse(this->res.begin(), this->res.end());
+        for(auto&& ele : this->res)
+            ele = res.size() - ele - 1;
+        return *this;
+    }
+    auto& get()
+    {
+        return this->res;
+    }
+};
+} // namespace agoh
+
+#ifndef __SPARSE_TABLE_HPP__
+#define __SPARSE_TABLE_HPP__
+#endif
+
+#include <array>
+#include <cassert>
+#include <cmath>
+#include <functional>
+namespace agoh
+{
+template<typename T = int, typename C = std::less<T>>
+class SparseTable
+{
+private:
+    typedef std::array<T, 25> arr;
+    std::vector<arr> f;
+    C comp;
+    T& m(T& a, T& b)
+    {
+        return comp(a, b) ? a : b;
+    }
+
+public:
+    template<typename II>
+    requires std::input_iterator<II> SparseTable(const II first, const II last)
+    {
+        for(auto it = first; it != last; ++it)
+            f.emplace_back(arr{*it});
+        for(int i = 1; (1 << i) <= f.size(); i++)
+            for(int j = 0; j + (1 << i) - 1 < f.size(); j++)
+                f[j][i] = m(f[j][i - 1], f[j + (1 << i - 1)][i - 1]);
+    }
+    /**
+     * @param l Left endpoint of the closed interval, indexed from 0
+     * @param r Right endpoint of the close interval, indexed from 0
+     * @return The RMQ of [l,r]
+     */
+    T& query(const size_t l, const size_t r)
+    {
+        assert(l <= r);
+        size_t k = log2(r - l + 1);
+        return m(f[l][k], f[r - (1 << k) + 1][k]);
+    }
+};
+} // namespace agoh
+
 using namespace agoh;
 typedef long long ll;
 signed main(signed argc, char const *argv[])
