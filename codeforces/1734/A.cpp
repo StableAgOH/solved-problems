@@ -32,7 +32,7 @@ signed main(signed argc, char const *argv[])
                 {
                     vector<int> w = {v[i], v[j], v[k]};
                     sort(w.begin(), w.end());
-                    mn = min(mn, abs(w[1]-w[0])+abs(w[1]-w[2]));
+                    mn = min(mn, w[2]-w[0]);
                 }
             }
         }
