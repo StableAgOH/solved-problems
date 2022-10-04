@@ -24,7 +24,6 @@ signed main(signed argc, char const *argv[])
         cin>>n;
         vector<int> v(n);
         for(int i=0;i<n;i++) cin>>v[i];
-        sort(v.begin(), v.end());
         int cnt = 0;
         for(size_t i=1;i<v.size();i++) cnt += (v[i]-1)/(v.front()*2-1);
         cout<<cnt<<endl;
