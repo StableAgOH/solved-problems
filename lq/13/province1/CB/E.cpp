@@ -3,11 +3,9 @@
 using namespace std;
 //==========================================
 #include <vector>
-#include <iterator>
 #include <algorithm>
 const int mod = 1e9+7;
 typedef long long ll;
-vector<int> a,b;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -20,14 +18,16 @@ signed main(signed argc, char const *argv[])
     //======================================
     int n,m;
     cin>>n>>m;
-    a.resize(m);
-    b.resize(m);
-    copy_n(istream_iterator<int>(cin), m, a.begin());
+    vector<int> a(m);
+    for(int i=0;i<m;i++) cin>>a[i];
     cin>>m;
-    copy_n(istream_iterator<int>(cin), m, b.begin()+(a.size()-m));
+    vector<int> b(m);
+    for(int i=0;i<m;i++) cin>>b[i];
+    if(a.size()<b.size()) a.insert(a.begin(), b.size()-a.size(), 0);
+    else if(b.size()<a.size()) b.insert(b.begin(), a.size()-b.size(), 0);
     ll ans = 0;
-    for(int i=0;i<a.size();i++)
-        ans = (ans*max({2, a[i]+1, b[i]+1})+a[i]-b[i])%mod;
+    for(size_t i=0;i<a.size();i++)
+        ans = (ans*max({2, a[i]+1, b[i]+1})+a[i]-b[i]+mod)%mod;
     cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
