@@ -12,4 +12,5 @@
 | 103931 |          2022 Shanghai Collegiate Programming Contest           |
 | 103940 |            2022 ICPC Gran Premio de Mexico 2da Fecha            |
 | 103941 |    2022 CCPC Henan Provincial Collegiate Programming Contest    |
+| 104023 |  2022 China Collegiate Programming Contest (CCPC) Weihai Site   |
 | 381483 |            HNCPC Multi-University Training Round 10             |
