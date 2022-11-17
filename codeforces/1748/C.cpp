@@ -32,7 +32,7 @@ signed main(signed argc, char const *argv[])
         for(int i=p;i<=n;)
         {
             int j = find(v.begin()+i+1, v.end(), 0)-v.begin();
-            unordered_map<ll,int> mp;
+            map<ll,int> mp;
             pre = 0;
             int mx = 0;
             for(int k=i;k<j;k++) mp[pre+=v[k]]++;
