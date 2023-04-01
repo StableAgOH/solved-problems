@@ -5,7 +5,7 @@ using namespace std;
 #include <unordered_map>
 typedef long long ll;
 typedef pair<int,int> pii;
-template<> struct std::hash<pii> { ll operator()(const pii& p) const { return (ll(p.first)>>32)+p.second; } };
+template<> struct std::hash<pii> { ll operator()(const pii& p) const { return (ll(p.first)<<32)+p.second; } };
 unordered_map<pii, pii> mp;
 int ans;
 void dfs(int x,int y,int r)
