@@ -10,3 +10,4 @@
 | 1574060137151397888 | The 2022 ICPC Asia Regionals Online Contest (II) |
 | 1584477476428324864 |       2022 中国大学生程序设计竞赛高职专场        |
 | 1703372159713652736 | The 2023 ICPC Asia Regionals Online Contest (1)  |
+| 1705510247604809728 | The 2023 ICPC Asia Regionals Online Contest (2)  |
